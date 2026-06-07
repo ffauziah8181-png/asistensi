@@ -1,36 +1,27 @@
 <?php
 
-namespace App\Services;
+namespace App\Http\Requests;
 
-use App\Models\Item;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Foundation\Http\FormRequest;
 
-class ItemService
+class UpdateCategoryRequest extends FormRequest
 {
-    public function all(): Collection
+    public function authorize(): bool
     {
-        return Item::with('category')->get();
+        return true;
     }
 
-    public function find(int $id): Item
+    protected function prepareForValidation(): void
     {
-        return Item::with('category')->findOrFail($id);
+        $this->merge([
+            'name' => trim(strip_tags($this->name)),
+        ]);
     }
 
-    public function create(array $data): Item
+    public function rules(): array
     {
-        return Item::create($data);
-    }
-
-    public function update(int $id, array $data): Item
-    {
-        $item = Item::findOrFail($id);
-        $item->update($data);
-        return $item;
-    }
-
-    public function delete(int $id): void
-    {
-        Item::destroy($id);
+        return [
+            'name' => 'sometimes|string|max:255',
+        ];
     }
 }

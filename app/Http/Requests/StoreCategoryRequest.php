@@ -11,18 +11,17 @@ class StoreCategoryRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'name' => trim(strip_tags($this->name)),
+        ]);
+    }
+
     public function rules(): array
     {
         return [
-            'name' => 'required|string|unique:categories,name|max:255',
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'name.required' => 'Nama kategori wajib diisi.',
-            'name.unique' => 'Nama kategori sudah ada.',
+            'name' => 'required|string|max:255',
         ];
     }
 }
