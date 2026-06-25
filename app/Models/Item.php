@@ -2,13 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    protected $fillable = ['category_id', 'name', 'price', 'stock'];
+    use HasFactory;
 
-    // Relasi: 1 item dimiliki oleh 1 kategori
+    protected $fillable = [
+        'name',
+        'price',
+        'stock',
+        'category_id',
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);

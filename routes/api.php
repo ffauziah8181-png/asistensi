@@ -7,7 +7,8 @@ Route::prefix('v1')->group(function () {
     Route::post('register', 'App\Http\Controllers\AuthController@register');
     Route::post('login', 'App\Http\Controllers\AuthController@login');
 
-    Route::middleware('auth:sanctum')->group(function () {
+    Route::middleware(['throttle:60,1'])->group(function () {
+
         Route::apiResource('categories', 'App\Http\Controllers\CategoryController')
             ->except(['destroy']);
         Route::delete('categories/{category}', 'App\Http\Controllers\CategoryController@destroy')
@@ -17,6 +18,7 @@ Route::prefix('v1')->group(function () {
             ->except(['destroy']);
         Route::delete('items/{item}', 'App\Http\Controllers\ItemController@destroy')
             ->middleware('role:admin');
+
     });
 
 });
