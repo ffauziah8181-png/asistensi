@@ -14,9 +14,9 @@ class UpdateItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'sometimes|required|string|max:255',
-            'quantity' => 'sometimes|required|integer|min:0',
-            'price' => 'sometimes|required|numeric|min:0',
+            'name'        => 'sometimes|required|string|max:255',
+            'price'       => 'sometimes|required|numeric|min:0',
+            'stock'       => 'sometimes|required|integer|min:0',
             'category_id' => 'sometimes|required|exists:categories,id',
         ];
     }
@@ -24,10 +24,8 @@ class UpdateItemRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Nama item wajib diisi jika kolom ini dikirim.',
-            'quantity.integer' => 'Jumlah harus berupa angka bulat.',
-            'price.numeric' => 'Harga harus berupa angka.',
-            'category_id.exists' => 'Kategori tidak ditemukan.',
+            'stock.integer' => 'Stok harus berupa angka bulat.',
+            'stock.min'     => 'Stok minimal adalah 0.',
         ];
     }
 }

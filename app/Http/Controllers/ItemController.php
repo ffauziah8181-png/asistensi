@@ -24,11 +24,13 @@ class ItemController extends BaseController
         return $this->success($items, 'Berhasil menarik semua data Item');
     }
 
-    public function store(StoreItemRequest $req)
-    {
-        $item = $this->svc->create($req->validated());
-        return $this->success($item, 'Item berhasil dibuat', 201);
-    }
+public function store(StoreItemRequest $req)
+{
+    $data = $req->validated();
+
+    $item = $this->svc->create($data);
+    return $this->success($item, 'Item berhasil dibuat', 201);
+}
 
     public function show($id)
     {

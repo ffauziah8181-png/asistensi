@@ -8,15 +8,15 @@ class StoreItemRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true; // Ubah menjadi true agar request diizinkan
+        return true;
     }
 
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'quantity' => 'required|integer|min:0',
-            'price' => 'required|numeric|min:0',
+            'name'        => 'required|string|max:255',
+            'price'       => 'required|numeric|min:0',
+            'stock'       => 'required|integer|min:0',
             'category_id' => 'required|exists:categories,id',
         ];
     }
@@ -24,12 +24,12 @@ class StoreItemRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Nama item wajib diisi.',
-            'quantity.integer' => 'Jumlah harus berupa angka bulat.',
-            'quantity.min' => 'Jumlah minimal adalah 0.',
-            'price.numeric' => 'Harga harus berupa angka.',
-            'price.min' => 'Harga minimal adalah 0.',
-            'category_id.exists' => 'Kategori tidak ditemukan.',
+            'name.required'        => 'Nama item wajib diisi.',
+            'price.required'       => 'Harga wajib diisi.',
+            'stock.required'       => 'Stok wajib diisi.',
+            'stock.integer'        => 'Stok harus berupa angka bulat.',
+            'category_id.required' => 'Kategori wajib dipilih.',
+            'category_id.exists'   => 'Kategori tidak ditemukan.',
         ];
     }
 }
